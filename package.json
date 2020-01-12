@@ -1,0 +1,28 @@
+{
+  "name": "Develop_Profile_Generator_HW",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lpmartinez1109/Develop_Profile_Generator_HW.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lpmartinez1109/Develop_Profile_Generator_HW/issues"
+  },
+  "homepage": "https://github.com/Lpmartinez1109/Develop_Profile_Generator_HW#readme",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "dotenv": "^8.2.0",
+    "electron": "^7.1.8",
+    "electron-html-to": "^2.6.0",
+    "inquirer": "^7.0.3",
+    "open": "^7.0.0"
+  }
+}
