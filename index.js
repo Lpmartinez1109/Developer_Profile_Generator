@@ -1,5 +1,12 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const axios = require("axios");
+const electron = require("electron");
+const electronHTML = require("electron-html-to");
+const generateHTML = require("./generateHTML")
+const api = require("./api")
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 inquirer.prompt([
     {
@@ -64,7 +71,7 @@ fs.writeFile("index.html", html, function(err){
         return console.log(err);
         
     }
-    console.log("SLIM");
+    console.log("Success");
     
     // const data = data
     
