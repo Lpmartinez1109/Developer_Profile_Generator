@@ -6,8 +6,12 @@ const convertFactory = require("electron-html-to");
 const electron = require("electron");
 const generateHTML = require("./generateHTML")
 const api = require("./api")
-const util = require("util")
+const util = require("util");
+const writeFileAsync = util.promisify(fs.writeFile)
 
+let data = {}
+let username ={}
+// let path = {}
 const questions =[
     {
         type: "input",
@@ -21,7 +25,7 @@ const questions =[
         choices:["red", "blue", "green", "pink"]
     }
 ]
-function writeToFile(filename, data){
+function writeToFile(fileName, data){
     return fs.writeFileSync(path.join(process.cwd(), fileName), data);
 }
 function init(){
@@ -30,7 +34,7 @@ function init(){
         api
         .getUser(github)
         .then((res)=>{
-            data.username = username;
+            data.username = res.data.login;
             data.numOfRepos = res.data.public_repos;
             data.name = res.data.name;
             data.followers = res.data.followers;
@@ -40,34 +44,27 @@ function init(){
             data.blog = res.data.blog;
             data.company = res.data.company;
             data.bio = res.data.bio
-        })
-        api.
-        
-    })
-// }.then(html => {
-//         const conversion = convertFactory({
-//             converterPath: convertFactory.converters.PDF
-//         });
-//         conversion({html}, function(err, result){
-//             if (err){
-//                 console.log("Error!");
+        }).then(html => {
+            const conversion = convertFactory({
+              converterPath: convertFactory.converters.PDF
+            });
+            conversion({ html }, function(err, result) {
+              if (err) {
+                return console.error(err);
+              }
+              result.stream.pipe(
+                fs.createWriteStream(path.join(__dirname, "resume.pdf")),
                 
-//             }
-//         })
+              );
+              conversion.kill();
+            });
+            open(path.join(process.cwd(), "resume.pdf"));
+          });
+      });
+    
+    }
+// fs.writeFile("index.html", function(err){
+//     if (err){
+//         return console.log(err);}
 //     })
-
-    
-    // const data = data
-    
-    // const element = document.getElementsByClassName("name")
-    // element.innerHTML = html
-    // console.log(html);
-
-    
-    // const data = data
-    
-    // const element = document.getElementsByClassName("name")
-    // element.innerHTML = html
-    // console.log(html);
-
-}
+init();
