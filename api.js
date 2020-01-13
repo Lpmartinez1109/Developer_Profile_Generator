@@ -10,7 +10,7 @@ const api = {
         )
         .catch(err => {
             console.log("User Not Found");
-            process.exit(i);
+            process.exit(1);
             
         });
     },
